@@ -69,7 +69,7 @@ func sbArtifact(sb *strings.Builder, path, ext, classifier string) error {
 func artifactTypeDetector(sb *strings.Builder, path string) error {
 	var err error
 
-	re := regexp.MustCompile(`^.*\/([a-z\d\-]+)-([\da-z\.]+)-?([\w]+)?(-[0-9a-z]{8,40})?-?([\w]+)?\.([a-z]+)$`)
+	re := regexp.MustCompile(`^.*\/([a-z\d\-]+)-([\da-z\.]+)-?([\w]+)?\.([a-z]+)$`)
 	if re.Match([]byte(path)) {
 		result := re.FindAllStringSubmatch(path, -1)
 		log.Debugf("Artifact: '%v'", result[0][1])
@@ -77,11 +77,9 @@ func artifactTypeDetector(sb *strings.Builder, path string) error {
 		log.Debugf("02: '%v'", result[0][2])
 		log.Debugf("03: '%v'", result[0][3])
 		log.Debugf("04: '%v'", result[0][4])
-		log.Debugf("05: '%v'", result[0][5])
-		log.Debugf("06: '%v'", result[0][6])
-		log.Debugf("Version: '%v'", result[0][2]+result[0][3]+result[0][4])
-		classifier := result[0][5]
-		ext := result[0][6]
+		log.Debugf("Version: '%v'", result[0][2])
+		classifier := result[0][3]
+		ext := result[0][4]
 		err = sbArtifact(sb, path, ext, classifier)
 	} else {
 		log.Warningf("'%v' not an artifact", path)
