@@ -76,7 +76,7 @@ func artifactTypeDetector(sb *strings.Builder, path string) error {
 		log.Debugf("Artifact: '%v'", result[0][2])
 		log.Debugf("01: '%v'", result[0][1])
 		log.Debugf("02: '%v'", result[0][2])
-		log.Debugf("03: '%v'", result[0][6])
+		log.Debugf("03: '%v'", classifier)
 		log.Debugf("04: '%v'", result[0][7])
 		log.Debugf("Version: '%v'", result[0][1])
 		if result[0][4] != result[0][1] {
