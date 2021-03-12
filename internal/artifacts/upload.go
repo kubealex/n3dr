@@ -87,7 +87,7 @@ func artifactTypeDetector(sb *strings.Builder, path string) error {
 		log.Debugf("Extension: '%v'", result[0][10])
 		log.Debugf("Classifier from variable: '%v'", classifier)
 		log.Debugf("Version: '%v'", result[0][1])
-		ext := result[0][7]
+		ext := result[0][10]
 		err = sbArtifact(sb, path, ext, classifier)
 	} else {
 		log.Warningf("'%v' not an artifact", path)
