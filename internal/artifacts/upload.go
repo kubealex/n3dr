@@ -69,20 +69,22 @@ func sbArtifact(sb *strings.Builder, path, ext, classifier string) error {
 func artifactTypeDetector(sb *strings.Builder, path string) error {
 	var err error
 
-	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/([a-z\d\-]+)(-(.*?(\-([\w.]+))?)?)?\.([a-z]+)$`)
+	//	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/([a-z\d\-]+)(-(.*?(\-([\w.]+))?)?)?\.([a-z]+)$`)
+	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/(([a-z\d\-]+)|(([a-z\d\.]+)))(-(.*?(\-([\w.]+))?)?)?\.([a-z]+)$`)
+
 	classifier := ""
 	if re.Match([]byte(path)) {
 		result := re.FindAllStringSubmatch(path, -1)
-		if result[0][4] != result[0][1] {
-			classifier = result[0][6]
+		if result[0][7] != result[0][1] {
+			classifier = result[0][9]
 		} else {
 			classifier = ""
 		}
-		log.Debugf("Artifact: '%v'", result[0][2])
+		log.Debugf("Artifact: '%v'", result[0][3])
 		log.Debugf("Version: '%v'", result[0][1])
-		log.Debugf("Artifact: '%v'", result[0][2])
-		log.Debugf("Classifier_from_regexp: '%v'", result[0][6])
-		log.Debugf("Extension: '%v'", result[0][7])
+		log.Debugf("Artifact: '%v'", result[0][3])
+		log.Debugf("Classifier_from_regexp: '%v'", result[0][9])
+		log.Debugf("Extension: '%v'", result[0][10])
 		log.Debugf("Classifier from variable: '%v'", classifier)
 		log.Debugf("Version: '%v'", result[0][1])
 		ext := result[0][7]
