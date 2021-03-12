@@ -69,7 +69,7 @@ func sbArtifact(sb *strings.Builder, path, ext, classifier string) error {
 func artifactTypeDetector(sb *strings.Builder, path string) error {
 	var err error
 
-	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/([a-z\d\-]+)(-(.*?(\-([\w.]+))?)?)?\.([a-z]+)$`)
+	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/([a-z\d\.\-]+)(-(.*?(\-([\w.]+))?)?)?\.([a-z]+)$`)
 	classifier := ""
 	if re.Match([]byte(path)) {
 		result := re.FindAllStringSubmatch(path, -1)
