@@ -69,7 +69,7 @@ func sbArtifact(sb *strings.Builder, path, ext, classifier string) error {
 func artifactTypeDetector(sb *strings.Builder, path string) error {
 	var err error
 
-	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/([a-z\d\-]+)(-(.*?([\w]+))?)?\.([a-z]+)$`)
+	re := regexp.MustCompile(`^.*\/([\w\-\.]+)\/([a-z\d\-]+)(-(.*?(\-([\w]+))?)?)?\.([a-z]+)$`)
 	if re.Match([]byte(path)) {
 		result := re.FindAllStringSubmatch(path, -1)
 		log.Debugf("Artifact: '%v'", result[0][2])
@@ -78,8 +78,8 @@ func artifactTypeDetector(sb *strings.Builder, path string) error {
 		log.Debugf("03: '%v'", result[0][3])
 		log.Debugf("04: '%v'", result[0][4])
 		log.Debugf("Version: '%v'", result[0][1])
-		classifier := result[0][5]
-		ext := result[0][6]
+		classifier := result[0][6]
+		ext := result[0][7]
 		err = sbArtifact(sb, path, ext, classifier)
 	} else {
 		log.Warningf("'%v' not an artifact", path)
